@@ -9,8 +9,8 @@
 // File: EnemyObject.swift
 // File Desc: Bullet Object in Game of memeber Generic game object class.
 //
-// Version: 0.1
-// Commit: Enemy object with custom action move to location
+// Version: 0.2
+// Commit: Added constraints for orientation
 // Date: 22.02.2018
 //
 // Contributors:
@@ -43,6 +43,10 @@ class EnemyObject: GenericObject {
     
     //move frigate to location
     override func doActions(location: CGPoint, speed: CGFloat) {
+
+        //create constraints for orientation
+        self.constraints = [SKConstraint.orient(to: location, offset: rangeforOrientation)]
+            
         //create action to move to location
         let actionMove = SKAction.move(to: location, duration: TimeInterval(self.objectMoveSpeed!))
         

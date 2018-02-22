@@ -9,8 +9,8 @@
 // File: Level1Scene.swift
 // File Desc: Scene for Level 1 of the game
 //
-// Version: 0.3
-// Commit: Rocket firing action
+// Version: 0.4
+// Commit: Random generation and display of enemies. Update to misslieCount to make sure user has enough rockets to finish the level
 // Date: 22.02.2018
 //
 // Contributors:
@@ -40,13 +40,27 @@ class Level1Scene: SKScene {
     
     //alien and missiles count
     var aliensCount = 25
-    var missilesCount = 35
+    var missilesCount: Int?
+    
+    //number of enemy ships
+    var frigatesCount: Int?
+    var cruisersCount: Int?
+    var battlecruisersCount: Int?
+    
+    //random distribution for X and Y axis
+    var randomSourceForY = GKShuffledDistribution()
+    var randomSourceForX = GKShuffledDistribution()
     
     override func didMove(to view: SKView) {
         
         //set middle point of the screen
         sceneMiddlePointForX = self.frame.width/2
         sceneMiddlePointForY = self.frame.height/2
+        
+        //get random distribution for enemy position generation
+        randomSourceForY = GKShuffledDistribution.init(lowestValue: 0, highestValue: Int(sceneMiddlePointForX!))
+        randomSourceForX = GKShuffledDistribution.init(lowestValue: 0, highestValue: Int(sceneMiddlePointForY!))
+        
         //display level background
         let backgroundNode = SKSpriteNode(imageNamed: "Level1_background")
         backgroundNode.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
@@ -56,14 +70,29 @@ class Level1Scene: SKScene {
         //add background node to the scene
         self.addChild(backgroundNode)
     
-        //draw hud when scene loads
-        createHUD()
-        
         //put tower in the middle of the scene
         tower.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         
         //add tower object to the scene
         self.addChild(tower)
+        
+        //create syncronized que of worker ques to make sure they're not added to the que out of order
+        DispatchQueue.global(qos: .background).sync {
+            
+            //generate enemy count worker que
+            DispatchQueue.global(qos: .background).sync {
+                generateEnemyCount()
+            }
+            
+            //generate missileCount after enemy counts been generated
+            DispatchQueue.global(qos: .background).sync {
+                missilesCount = frigatesCount!+2*cruisersCount!+3*battlecruisersCount!+10
+                generateEnemies()
+            }
+        }
+        
+        //draw hud when scene loads
+        createHUD()
     }
     
     //draw HUD elements
@@ -116,7 +145,7 @@ class Level1Scene: SKScene {
         missilesCountLabel.fontName = "Neuropolitical"
         missilesCountLabel.fontSize = 48
         missilesCountLabel.fontColor = SKColor.darkGray
-        missilesCountLabel.text = "Rockets: \(missilesCount)"
+        missilesCountLabel.text = "Rockets: \(missilesCount!)"
         missilesCountLabel.position = CGPoint(x: missilesCountIcon.size.width-5, y: -missilesCountLabel.frame.height/2)
         
         //add child nodes to missile count controller node
@@ -128,6 +157,139 @@ class Level1Scene: SKScene {
         self.addChild(missilesScoreController)
         
     }
+    
+    //generate random position on the endges of the screen
+    func generateEnemyPosition() -> CGPoint {
+        var position = CGPoint.zero
+                
+        //generate from what side object appears
+        let randomSide = GKShuffledDistribution.init(lowestValue: 0, highestValue: 3)
+        
+        switch randomSide.nextInt() {
+            //position along the bottom edge
+        case 0: position = CGPoint(x: randomSourceForX.nextInt(), y: 0)
+            //position along the left edge
+        case 1: position = CGPoint(x: 0, y: randomSourceForY.nextInt())
+            //position along the top edge
+        case 2: position = CGPoint(x: randomSourceForX.nextInt(), y: Int(self.frame.height))
+            //position along the right edge
+        case 3: position = CGPoint(x: Int(self.frame.width), y: randomSourceForY.nextInt())
+        default: return position
+            
+        }
+        
+        return position
+    }
+    
+    //generate enemy counts
+    func generateEnemyCount() {
+        DispatchQueue.global(qos: .background).sync {
+            
+        //generate random number of frigates up to the max
+        DispatchQueue.global(qos: .background).sync {
+            frigatesCount = GKShuffledDistribution.init(lowestValue: 5, highestValue: 15).nextInt()
+        }
+        //generate random number of cruisers from remaining slots
+        DispatchQueue.global(qos: .background).sync {
+            cruisersCount = GKShuffledDistribution.init(lowestValue: 0, highestValue: aliensCount-frigatesCount!).nextInt()
+        }
+            
+        //generate random number of cruisers from remaining slots
+        DispatchQueue.global(qos: .background).sync {
+            if cruisersCount! + frigatesCount! < aliensCount {
+                battlecruisersCount = GKShuffledDistribution.init(lowestValue: 0, highestValue: aliensCount-frigatesCount!-cruisersCount!).nextInt()
+            }
+        }
+        
+        //check if not enought enemies been generated add more frigates
+        DispatchQueue.global(qos: .background).sync {
+            let count = frigatesCount!+cruisersCount!+battlecruisersCount!
+            if count < aliensCount {
+                frigatesCount! += aliensCount-count
+            }
+        }
+        }
+    }
+    
+    //display generated enemy on screen
+    func generateEnemyOnScreen(enemyType: String) {
+        var enemy: EnemyObject?
+        
+        //select which type to choose
+        switch enemyType {
+        case "frigate": enemy=FrigateObject()
+        case "cruiser": enemy=CruiserObject()
+        case "battlecruiser": enemy=BattlecruiserObject()
+        default: enemy=FrigateObject()
+        }
+        
+        //generate random position on screen
+        enemy!.position = self.generateEnemyPosition()
+        
+        //add enemy node to the scene
+        self.addChild(enemy!)
+        
+        //start enemy movement action to middle of the screen
+        enemy!.doActions(location: CGPoint(x: sceneMiddlePointForX!, y: sceneMiddlePointForY!), speed: 0)
+    }
+    
+    func generateEnemies() {
+        let frigatesLeftOver = frigatesCount! % 3
+        let frigatesInWave = (frigatesCount! - frigatesLeftOver) / 3
+        
+        let cruisersLeftOver = cruisersCount! % 2
+        let cruisersInWave = (cruisersCount! - cruisersLeftOver) / 2
+        
+        let battlecruisersLeftOver = battlecruisersCount! % 2
+        let battlecruisersInWave = (battlecruisersCount! - battlecruisersLeftOver) / 2
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+            for _ in 0...frigatesInWave {
+                self.generateEnemyOnScreen(enemyType: "frigate")
+            }
+        })
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
+            DispatchQueue.main.async {
+                for _ in 0...frigatesInWave {
+                    self.generateEnemyOnScreen(enemyType: "frigate")
+                }
+            }
+            
+            DispatchQueue.main.async {
+                for _ in 0...cruisersInWave {
+                    self.generateEnemyOnScreen(enemyType: "cruiser")
+                }
+            }
+            
+            DispatchQueue.main.async {
+                for _ in 0...battlecruisersInWave {
+                    self.generateEnemyOnScreen(enemyType: "battlecruiser")
+                }
+            }
+        })
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10), execute: {
+            DispatchQueue.main.async {
+                for _ in 0...(frigatesInWave+frigatesLeftOver) {
+                    self.generateEnemyOnScreen(enemyType: "frigate")
+                }
+            }
+            
+            DispatchQueue.main.async {
+                for _ in 0...(cruisersInWave+cruisersLeftOver) {
+                    self.generateEnemyOnScreen(enemyType: "cruiser")
+                }
+            }
+            
+            DispatchQueue.main.async {
+                for _ in 0...(battlecruisersInWave+battlecruisersLeftOver) {
+                    self.generateEnemyOnScreen(enemyType: "battlecruiser")
+                }
+            }
+        })
+    }
+        
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
@@ -142,4 +304,12 @@ class Level1Scene: SKScene {
         }
     }
     
+    override func update(_ currentTime: TimeInterval) {
+        
+        //update HUD labels
+        aliensCountLabel.text = "Aliens: \(aliensCount)"
+        missilesCountLabel.text = "Rockets: \(missilesCount!)"
+
+        
+    }
 }

@@ -9,8 +9,8 @@
 // File: BattlecruiserObject.swift
 // File Desc: Battlecruiser Object in Game of memeber Enemy object class.
 //
-// Version: 0.1
-// Commit: Enemy Battlecruiser object created
+// Version: 0.11
+// Commit: Spelling errors fixes
 // Date: 22.02.2018
 //
 // Contributors:
@@ -24,9 +24,9 @@
 
 import SpriteKit
 
-class BAttlecruiserObject: EnemyObject {
+class BattlecruiserObject: EnemyObject {
     init() {
-        super.init(objectTextureFileName: "Battlecruiser", objectScale: 1.0)
+        super.init(objectTextureFileName: "battlecruiser", objectScale: 1.0)
         self.objectMoveSpeed = 5.5
         self.hp = 3
     }
