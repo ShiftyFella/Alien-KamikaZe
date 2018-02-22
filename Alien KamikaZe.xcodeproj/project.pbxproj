@@ -17,6 +17,9 @@
 		77A3388F203EA8BA000C2F86 /* GameWinScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A3388E203EA8BA000C2F86 /* GameWinScene.swift */; };
 		77A33891203EA9D3000C2F86 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A33890203EA9D3000C2F86 /* MenuScene.swift */; };
 		77A33893203EB0E9000C2F86 /* GenericObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A33892203EB0E9000C2F86 /* GenericObject.swift */; };
+		77A33898203EC30E000C2F86 /* neuropolitical rg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77A33895203EC30D000C2F86 /* neuropolitical rg.ttf */; };
+		77A33899203EC30E000C2F86 /* read-this.html in Resources */ = {isa = PBXBuildFile; fileRef = 77A33896203EC30D000C2F86 /* read-this.html */; };
+		77A3389A203EC30E000C2F86 /* typodermic-eula-02-2014.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 77A33897203EC30E000C2F86 /* typodermic-eula-02-2014.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,9 @@
 		77A3388E203EA8BA000C2F86 /* GameWinScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWinScene.swift; sourceTree = "<group>"; };
 		77A33890203EA9D3000C2F86 /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		77A33892203EB0E9000C2F86 /* GenericObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericObject.swift; sourceTree = "<group>"; };
+		77A33895203EC30D000C2F86 /* neuropolitical rg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "neuropolitical rg.ttf"; sourceTree = "<group>"; };
+		77A33896203EC30D000C2F86 /* read-this.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "read-this.html"; sourceTree = "<group>"; };
+		77A33897203EC30E000C2F86 /* typodermic-eula-02-2014.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "typodermic-eula-02-2014.pdf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				77A3386E203EA739000C2F86 /* AppDelegate.swift */,
+				77A33894203EC2DC000C2F86 /* Game Font */,
 				77A33887203EA81E000C2F86 /* Game Nodes */,
 				77A33886203EA809000C2F86 /* Game Scenes */,
 				77A33876203EA739000C2F86 /* GameViewController.swift */,
@@ -93,6 +100,16 @@
 				77A33892203EB0E9000C2F86 /* GenericObject.swift */,
 			);
 			path = "Game Nodes";
+			sourceTree = "<group>";
+		};
+		77A33894203EC2DC000C2F86 /* Game Font */ = {
+			isa = PBXGroup;
+			children = (
+				77A33895203EC30D000C2F86 /* neuropolitical rg.ttf */,
+				77A33896203EC30D000C2F86 /* read-this.html */,
+				77A33897203EC30E000C2F86 /* typodermic-eula-02-2014.pdf */,
+			);
+			path = "Game Font";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,8 +171,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77A33898203EC30E000C2F86 /* neuropolitical rg.ttf in Resources */,
 				77A3387A203EA739000C2F86 /* Main.storyboard in Resources */,
 				77A3387C203EA739000C2F86 /* Assets.xcassets in Resources */,
+				77A33899203EC30E000C2F86 /* read-this.html in Resources */,
+				77A3389A203EC30E000C2F86 /* typodermic-eula-02-2014.pdf in Resources */,
 				77A3387F203EA739000C2F86 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
