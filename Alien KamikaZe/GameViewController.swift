@@ -9,8 +9,8 @@
 // File: GameViewController.swift
 // File Desc: View controller for the game
 //
-// Version: 0.0
-// Commit: Intial commit
+// Version: 0.1
+// Commit: Start MenuScene without using SKS file
 // Date: 22.02.2018
 //
 // Contributors:
@@ -31,15 +31,21 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //set scene width and height based on screen size
+        let sizeRect = UIScreen.main.bounds
+        let width = sizeRect.width * UIScreen.main.scale
+        let height = sizeRect.height * UIScreen.main.scale
+        
         if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "MenuScene") {
+            
+            //create sks-less Menu Scene 
+            let scene = MenuScene(size: CGSize(width: width, height: height))
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 
                 // Present the scene
                 view.presentScene(scene)
-            }
+            
             
             view.ignoresSiblingOrder = true
             
