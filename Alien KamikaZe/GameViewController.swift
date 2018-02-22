@@ -1,10 +1,26 @@
+//---------------------------------------------------------------------------
 //
-//  GameViewController.swift
-//  Alien KamikaZe
+// Project name: Alien KamikaZe
 //
-//  Created by Viktor Bilyk on 2018-02-22.
-//  Copyright © 2018 Shifty Land LLC. All rights reserved.
+// Project Desc: Arcade fixed shooter where you have to defend yourself from
+//               alien fleet invasion
 //
+//
+// File: GameViewController.swift
+// File Desc: View controller for the game
+//
+// Version: 0.0
+// Commit: Intial commit
+// Date: 22.02.2018
+//
+// Contributors:
+//          Name         StudenID
+//      Viktor Bilyk  - #300964200
+//      Andrii Damm   - #300966307
+//      Timofei Sopin - #300965775
+//      Tarun Singh   - #300967393
+//
+//---------------------------------------------------------------------------
 
 import UIKit
 import SpriteKit
@@ -17,7 +33,7 @@ class GameViewController: UIViewController {
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
+            if let scene = SKScene(fileNamed: "MenuScene") {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 
