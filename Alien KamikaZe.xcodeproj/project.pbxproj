@@ -22,6 +22,10 @@
 		77A3389A203EC30E000C2F86 /* typodermic-eula-02-2014.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 77A33897203EC30E000C2F86 /* typodermic-eula-02-2014.pdf */; };
 		77A82F66203F04CE0073326B /* TowerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A82F65203F04CE0073326B /* TowerObject.swift */; };
 		77A82F68203F087A0073326B /* BulletObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A82F67203F087A0073326B /* BulletObject.swift */; };
+		77A82F6A203F22C90073326B /* EnemyObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A82F69203F22C90073326B /* EnemyObject.swift */; };
+		77A82F72203F2FBB0073326B /* FrigateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A82F71203F2FBB0073326B /* FrigateObject.swift */; };
+		77A82F74203F30590073326B /* CruiserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A82F73203F30590073326B /* CruiserObject.swift */; };
+		77A82F76203F35F10073326B /* BattlecruiserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A82F75203F35F10073326B /* BattlecruiserObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +46,10 @@
 		77A33897203EC30E000C2F86 /* typodermic-eula-02-2014.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "typodermic-eula-02-2014.pdf"; sourceTree = "<group>"; };
 		77A82F65203F04CE0073326B /* TowerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TowerObject.swift; sourceTree = "<group>"; };
 		77A82F67203F087A0073326B /* BulletObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletObject.swift; sourceTree = "<group>"; };
+		77A82F69203F22C90073326B /* EnemyObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyObject.swift; sourceTree = "<group>"; };
+		77A82F71203F2FBB0073326B /* FrigateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrigateObject.swift; sourceTree = "<group>"; };
+		77A82F73203F30590073326B /* CruiserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CruiserObject.swift; sourceTree = "<group>"; };
+		77A82F75203F35F10073326B /* BattlecruiserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattlecruiserObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +112,10 @@
 				77A33892203EB0E9000C2F86 /* GenericObject.swift */,
 				77A82F65203F04CE0073326B /* TowerObject.swift */,
 				77A82F67203F087A0073326B /* BulletObject.swift */,
+				77A82F69203F22C90073326B /* EnemyObject.swift */,
+				77A82F71203F2FBB0073326B /* FrigateObject.swift */,
+				77A82F73203F30590073326B /* CruiserObject.swift */,
+				77A82F75203F35F10073326B /* BattlecruiserObject.swift */,
 			);
 			path = "Game Nodes";
 			sourceTree = "<group>";
@@ -196,11 +208,15 @@
 				77A3388B203EA892000C2F86 /* Level1Scene.swift in Sources */,
 				77A33877203EA739000C2F86 /* GameViewController.swift in Sources */,
 				77A3388D203EA8A0000C2F86 /* GameOverScene.swift in Sources */,
+				77A82F76203F35F10073326B /* BattlecruiserObject.swift in Sources */,
 				77A82F68203F087A0073326B /* BulletObject.swift in Sources */,
 				77A33893203EB0E9000C2F86 /* GenericObject.swift in Sources */,
+				77A82F6A203F22C90073326B /* EnemyObject.swift in Sources */,
 				77A82F66203F04CE0073326B /* TowerObject.swift in Sources */,
+				77A82F72203F2FBB0073326B /* FrigateObject.swift in Sources */,
 				77A33891203EA9D3000C2F86 /* MenuScene.swift in Sources */,
 				77A3386F203EA739000C2F86 /* AppDelegate.swift in Sources */,
+				77A82F74203F30590073326B /* CruiserObject.swift in Sources */,
 				77A3388F203EA8BA000C2F86 /* GameWinScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
