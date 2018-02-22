@@ -9,8 +9,8 @@
 // File: Level1Scene.swift
 // File Desc: Scene for Level 1 of the game
 //
-// Version: 0.2
-// Commit: Added display of tower object
+// Version: 0.3
+// Commit: Rocket firing action
 // Date: 22.02.2018
 //
 // Contributors:
@@ -24,6 +24,10 @@
 
 import SpriteKit
 import GameplayKit
+
+//store middle of the screen as global variable
+var sceneMiddlePointForX : CGFloat?
+var sceneMiddlePointForY : CGFloat?
 
 class Level1Scene: SKScene {
     
@@ -40,6 +44,9 @@ class Level1Scene: SKScene {
     
     override func didMove(to view: SKView) {
         
+        //set middle point of the screen
+        sceneMiddlePointForX = self.frame.width/2
+        sceneMiddlePointForY = self.frame.height/2
         //display level background
         let backgroundNode = SKSpriteNode(imageNamed: "Level1_background")
         backgroundNode.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
@@ -120,6 +127,19 @@ class Level1Scene: SKScene {
         self.addChild(alienScoreController)
         self.addChild(missilesScoreController)
         
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for t in touches {
+            //get location of the tap
+            let location = t.location(in: self)
+            
+            //create bullet object and move it through touch location
+            let bullet = BulletObject()
+            bullet.position = CGPoint(x: sceneMiddlePointForX!, y: sceneMiddlePointForY!)
+            self.addChild(bullet)
+            bullet.doActions(location: location, speed: 1.0)
+        }
     }
     
 }

@@ -9,8 +9,8 @@
 // File: GenericObject.swift
 // File Desc: Generic game object class that extends SKSpiteNode functionality for the purprose of the game
 //
-// Version: 0.0
-// Commit: Intial commit
+// Version: 0.1
+// Commit: Added action event at\to location with speed
 // Date: 22.02.2018
 //
 // Contributors:
@@ -27,6 +27,9 @@ import GameplayKit
 
 class GenericObject: SKSpriteNode {
     
+    //deegre of rotation for the object
+    let rangeforOrientation = SKRange.init(constantValue: -CGFloat.pi/2)
+    
     init (objectTextureFileName: String, objectScale: CGFloat) {
         let objectTexture = SKTexture(imageNamed: objectTextureFileName)
         super.init(texture: objectTexture, color: UIColor.clear, size: objectTexture.size())
@@ -36,5 +39,10 @@ class GenericObject: SKSpriteNode {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    public func doActions(location: CGPoint, speed: CGFloat) {
+        
     }
 }
