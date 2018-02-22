@@ -20,6 +20,8 @@
 		77A33898203EC30E000C2F86 /* neuropolitical rg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77A33895203EC30D000C2F86 /* neuropolitical rg.ttf */; };
 		77A33899203EC30E000C2F86 /* read-this.html in Resources */ = {isa = PBXBuildFile; fileRef = 77A33896203EC30D000C2F86 /* read-this.html */; };
 		77A3389A203EC30E000C2F86 /* typodermic-eula-02-2014.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 77A33897203EC30E000C2F86 /* typodermic-eula-02-2014.pdf */; };
+		77A82F66203F04CE0073326B /* TowerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A82F65203F04CE0073326B /* TowerObject.swift */; };
+		77A82F68203F087A0073326B /* BulletObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A82F67203F087A0073326B /* BulletObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		77A33895203EC30D000C2F86 /* neuropolitical rg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "neuropolitical rg.ttf"; sourceTree = "<group>"; };
 		77A33896203EC30D000C2F86 /* read-this.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "read-this.html"; sourceTree = "<group>"; };
 		77A33897203EC30E000C2F86 /* typodermic-eula-02-2014.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "typodermic-eula-02-2014.pdf"; sourceTree = "<group>"; };
+		77A82F65203F04CE0073326B /* TowerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TowerObject.swift; sourceTree = "<group>"; };
+		77A82F67203F087A0073326B /* BulletObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				77A33892203EB0E9000C2F86 /* GenericObject.swift */,
+				77A82F65203F04CE0073326B /* TowerObject.swift */,
+				77A82F67203F087A0073326B /* BulletObject.swift */,
 			);
 			path = "Game Nodes";
 			sourceTree = "<group>";
@@ -190,7 +196,9 @@
 				77A3388B203EA892000C2F86 /* Level1Scene.swift in Sources */,
 				77A33877203EA739000C2F86 /* GameViewController.swift in Sources */,
 				77A3388D203EA8A0000C2F86 /* GameOverScene.swift in Sources */,
+				77A82F68203F087A0073326B /* BulletObject.swift in Sources */,
 				77A33893203EB0E9000C2F86 /* GenericObject.swift in Sources */,
+				77A82F66203F04CE0073326B /* TowerObject.swift in Sources */,
 				77A33891203EA9D3000C2F86 /* MenuScene.swift in Sources */,
 				77A3386F203EA739000C2F86 /* AppDelegate.swift in Sources */,
 				77A3388F203EA8BA000C2F86 /* GameWinScene.swift in Sources */,

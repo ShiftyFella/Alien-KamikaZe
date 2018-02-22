@@ -9,8 +9,8 @@
 // File: Level1Scene.swift
 // File Desc: Scene for Level 1 of the game
 //
-// Version: 0.1
-// Commit: Game Level Initial Design. Added level background and HUD
+// Version: 0.2
+// Commit: Added display of tower object
 // Date: 22.02.2018
 //
 // Contributors:
@@ -27,9 +27,14 @@ import GameplayKit
 
 class Level1Scene: SKScene {
     
+    //label nodes to display alien and missiles count
     let aliensCountLabel = SKLabelNode()
     let missilesCountLabel = SKLabelNode()
     
+    //tower object
+    let tower = TowerObject()
+    
+    //alien and missiles count
     var aliensCount = 25
     var missilesCount = 35
     
@@ -41,10 +46,17 @@ class Level1Scene: SKScene {
         backgroundNode.size = self.frame.size
         backgroundNode.zPosition = 0
         
+        //add background node to the scene
         self.addChild(backgroundNode)
     
         //draw hud when scene loads
         createHUD()
+        
+        //put tower in the middle of the scene
+        tower.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
+        
+        //add tower object to the scene
+        self.addChild(tower)
     }
     
     //draw HUD elements
