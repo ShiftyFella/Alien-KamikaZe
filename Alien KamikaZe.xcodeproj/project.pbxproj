@@ -20,6 +20,15 @@
 		77A33898203EC30E000C2F86 /* neuropolitical rg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77A33895203EC30D000C2F86 /* neuropolitical rg.ttf */; };
 		77A33899203EC30E000C2F86 /* read-this.html in Resources */ = {isa = PBXBuildFile; fileRef = 77A33896203EC30D000C2F86 /* read-this.html */; };
 		77A3389A203EC30E000C2F86 /* typodermic-eula-02-2014.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 77A33897203EC30E000C2F86 /* typodermic-eula-02-2014.pdf */; };
+		77A5BCA42040A74300C081EF /* sparks.sks in Resources */ = {isa = PBXBuildFile; fileRef = 77A5BCA22040A74300C081EF /* sparks.sks */; };
+		77A5BCA52040A74300C081EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77A5BCA32040A74300C081EF /* Assets.xcassets */; };
+		77A5BCA92040A85800C081EF /* smoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = 77A5BCA82040A85800C081EF /* smoke.sks */; };
+		77A5BCAC2040AB6300C081EF /* Collision_With_rocket.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77A5BCAB2040AB6300C081EF /* Collision_With_rocket.mp3 */; };
+		77A5BCAE2040AB6F00C081EF /* Rocket_launch.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77A5BCAD2040AB6F00C081EF /* Rocket_launch.mp3 */; };
+		77A5BCB02040AB7900C081EF /* Lvl_1_soundrack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77A5BCAF2040AB7900C081EF /* Lvl_1_soundrack.mp3 */; };
+		77A5BCB22040AB9300C081EF /* Start_screen_soundtrack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77A5BCB12040AB9300C081EF /* Start_screen_soundtrack.mp3 */; };
+		77A5BCB42040ABAF00C081EF /* EndOfTheGame_soundtrack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77A5BCB32040ABAF00C081EF /* EndOfTheGame_soundtrack.mp3 */; };
+		77A5BCB62040ABB600C081EF /* Lose_sountrack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77A5BCB52040ABB600C081EF /* Lose_sountrack.mp3 */; };
 		77A82F66203F04CE0073326B /* TowerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A82F65203F04CE0073326B /* TowerObject.swift */; };
 		77A82F68203F087A0073326B /* BulletObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A82F67203F087A0073326B /* BulletObject.swift */; };
 		77A82F6A203F22C90073326B /* EnemyObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A82F69203F22C90073326B /* EnemyObject.swift */; };
@@ -44,6 +53,15 @@
 		77A33895203EC30D000C2F86 /* neuropolitical rg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "neuropolitical rg.ttf"; sourceTree = "<group>"; };
 		77A33896203EC30D000C2F86 /* read-this.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "read-this.html"; sourceTree = "<group>"; };
 		77A33897203EC30E000C2F86 /* typodermic-eula-02-2014.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "typodermic-eula-02-2014.pdf"; sourceTree = "<group>"; };
+		77A5BCA22040A74300C081EF /* sparks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = sparks.sks; sourceTree = "<group>"; };
+		77A5BCA32040A74300C081EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		77A5BCA82040A85800C081EF /* smoke.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = smoke.sks; sourceTree = "<group>"; };
+		77A5BCAB2040AB6300C081EF /* Collision_With_rocket.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Collision_With_rocket.mp3; sourceTree = "<group>"; };
+		77A5BCAD2040AB6F00C081EF /* Rocket_launch.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Rocket_launch.mp3; sourceTree = "<group>"; };
+		77A5BCAF2040AB7900C081EF /* Lvl_1_soundrack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Lvl_1_soundrack.mp3; sourceTree = "<group>"; };
+		77A5BCB12040AB9300C081EF /* Start_screen_soundtrack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Start_screen_soundtrack.mp3; sourceTree = "<group>"; };
+		77A5BCB32040ABAF00C081EF /* EndOfTheGame_soundtrack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = EndOfTheGame_soundtrack.mp3; sourceTree = "<group>"; };
+		77A5BCB52040ABB600C081EF /* Lose_sountrack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Lose_sountrack.mp3; sourceTree = "<group>"; };
 		77A82F65203F04CE0073326B /* TowerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TowerObject.swift; sourceTree = "<group>"; };
 		77A82F67203F087A0073326B /* BulletObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletObject.swift; sourceTree = "<group>"; };
 		77A82F69203F22C90073326B /* EnemyObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyObject.swift; sourceTree = "<group>"; };
@@ -82,6 +100,8 @@
 		77A3386D203EA739000C2F86 /* Alien KamikaZe */ = {
 			isa = PBXGroup;
 			children = (
+				77A5BCAA2040AB4C00C081EF /* Game Sounds */,
+				77A5BCA12040A70000C081EF /* Game Particle Effects */,
 				77A3386E203EA739000C2F86 /* AppDelegate.swift */,
 				77A33894203EC2DC000C2F86 /* Game Font */,
 				77A33887203EA81E000C2F86 /* Game Nodes */,
@@ -128,6 +148,29 @@
 				77A33897203EC30E000C2F86 /* typodermic-eula-02-2014.pdf */,
 			);
 			path = "Game Font";
+			sourceTree = "<group>";
+		};
+		77A5BCA12040A70000C081EF /* Game Particle Effects */ = {
+			isa = PBXGroup;
+			children = (
+				77A5BCA22040A74300C081EF /* sparks.sks */,
+				77A5BCA32040A74300C081EF /* Assets.xcassets */,
+				77A5BCA82040A85800C081EF /* smoke.sks */,
+			);
+			path = "Game Particle Effects";
+			sourceTree = "<group>";
+		};
+		77A5BCAA2040AB4C00C081EF /* Game Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				77A5BCAD2040AB6F00C081EF /* Rocket_launch.mp3 */,
+				77A5BCAB2040AB6300C081EF /* Collision_With_rocket.mp3 */,
+				77A5BCAF2040AB7900C081EF /* Lvl_1_soundrack.mp3 */,
+				77A5BCB12040AB9300C081EF /* Start_screen_soundtrack.mp3 */,
+				77A5BCB32040ABAF00C081EF /* EndOfTheGame_soundtrack.mp3 */,
+				77A5BCB52040ABB600C081EF /* Lose_sountrack.mp3 */,
+			);
+			path = "Game Sounds";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,11 +233,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				77A33898203EC30E000C2F86 /* neuropolitical rg.ttf in Resources */,
+				77A5BCA92040A85800C081EF /* smoke.sks in Resources */,
 				77A3387A203EA739000C2F86 /* Main.storyboard in Resources */,
 				77A3387C203EA739000C2F86 /* Assets.xcassets in Resources */,
+				77A5BCB02040AB7900C081EF /* Lvl_1_soundrack.mp3 in Resources */,
+				77A5BCB42040ABAF00C081EF /* EndOfTheGame_soundtrack.mp3 in Resources */,
 				77A33899203EC30E000C2F86 /* read-this.html in Resources */,
 				77A3389A203EC30E000C2F86 /* typodermic-eula-02-2014.pdf in Resources */,
+				77A5BCAE2040AB6F00C081EF /* Rocket_launch.mp3 in Resources */,
+				77A5BCA42040A74300C081EF /* sparks.sks in Resources */,
+				77A5BCA52040A74300C081EF /* Assets.xcassets in Resources */,
 				77A3387F203EA739000C2F86 /* LaunchScreen.storyboard in Resources */,
+				77A5BCB22040AB9300C081EF /* Start_screen_soundtrack.mp3 in Resources */,
+				77A5BCB62040ABB600C081EF /* Lose_sountrack.mp3 in Resources */,
+				77A5BCAC2040AB6300C081EF /* Collision_With_rocket.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

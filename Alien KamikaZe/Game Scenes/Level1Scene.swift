@@ -9,9 +9,9 @@
 // File: Level1Scene.swift
 // File Desc: Scene for Level 1 of the game
 //
-// Version: 0.6
-// Commit: Update to enemy spawn logic. Switch to game win scene based on win conditions. Scaling issue fixed for UI
-// Date: 22.02.2018
+// Version: 0.7
+// Commit: Special and Audio effects
+// Date: 23.02.2018
 //
 // Contributors:
 //          Name         StudenID
@@ -61,6 +61,9 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
     var timer = Timer()
     
     override func didMove(to view: SKView) {
+        
+        //play backgroundaudio
+        audioInBackground()
         
         //set middle point of the screen
         sceneMiddlePointForX = self.frame.width/2
@@ -169,6 +172,19 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
         self.addChild(alienScoreController)
         self.addChild(missilesScoreController)
         
+    }
+    
+    //play background sound
+    func audioInBackground() {
+        //load background file into node
+        let soundNode = SKAudioNode(fileNamed: "Lvl_1_soundrack.mp3")
+        soundNode.name = "background_music"
+        //play audio on loop
+        soundNode.autoplayLooped = true
+        //add to the scene
+        self.addChild(soundNode)
+        //change volume of the file to appropriate level
+        soundNode.run(SKAction.changeVolume(to: Float(0.2), duration: 0))
     }
     
     //generate random position on the endges of the screen
@@ -305,18 +321,24 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
         //if enemy still has HP reduce it
         if enemy.hp!>1 {
             enemy.hp! -= 1
+            
+            //bullet collided with enemy, play smoke effect, remove from scene
+            smoke(position: bullet.position)
+            bullet.removeAllActions()
+            bullet.removeFromParent()
         } else {
             //enemy has no hp left, destroy it
+            explosion(position: enemy.position)
             enemy.removeAllActions()
             enemy.removeFromParent()
+            
+            //bullet exploded, remove from scene
+            bullet.removeAllActions()
+            bullet.removeFromParent()
             
             //enemy destroyed update enemy count
             updateAliensCount()
         }
-        
-        //bullet exploded, remove from scene
-        bullet.removeAllActions()
-        bullet.removeFromParent()
     }
     
     //verify which group collided between each other
@@ -333,6 +355,30 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
         else if (nodeA.categoryBitMask == collisionTowerCategory && nodeB.categoryBitMask == collisionEnemyCategory || nodeB.categoryBitMask == collisionTowerCategory && nodeA.categoryBitMask == collisionEnemyCategory) {
                     gameOver()
             }
+    }
+    
+    //enemy explosion special effect
+    func explosion(position: CGPoint) {
+        //load special effect
+        let emitterNode = SKEmitterNode(fileNamed: "sparks.sks")
+        //assign node to position on the screen
+        emitterNode?.particlePosition = position
+        //add node to the scene
+        self.addChild(emitterNode!)
+        //execute action to play collision sound and remove node after
+        self.run(SKAction.group([SKAction.playSoundFileNamed("Collision_With_rocket.mp3", waitForCompletion: true), SKAction.wait(forDuration: 1)]), completion: {emitterNode?.removeFromParent()})
+    }
+    
+    //rocket collision smoke special effect
+    func smoke(position: CGPoint) {
+        //load special effect
+        let emitterNode = SKEmitterNode(fileNamed: "smoke.sks")
+        //assign node to position on the screen
+        emitterNode?.particlePosition = position
+        //add node to the scene
+        self.addChild(emitterNode!)
+        //execute action to play collision sound and remove node after
+        self.run(SKAction.group([SKAction.playSoundFileNamed("Collision_With_rocket.mp3", waitForCompletion: true), SKAction.wait(forDuration: 1)]), completion: {emitterNode?.removeFromParent()})
     }
     
     //enemy destroyed update enemy count

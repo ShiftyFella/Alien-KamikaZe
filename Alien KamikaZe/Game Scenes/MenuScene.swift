@@ -9,9 +9,9 @@
 // File: MenuScene.swift
 // File Desc: Main Screen
 //
-// Version: 0.1
-// Commit: Created Start\Quit buttons with respective actions, added background
-// Date: 22.02.2018
+// Version: 0.2
+// Commit: Added background music
+// Date: 23.02.2018
 //
 // Contributors:
 //          Name         StudenID
@@ -27,6 +27,9 @@ import SpriteKit
 class MenuScene: SKScene {
 
     override func didMove(to view: SKView) {
+        
+        //play backgroundaudio
+        audioInBackground()
         
         //Set scene background
         let backgroundNode = SKSpriteNode(imageNamed: "Splash screen")
@@ -58,6 +61,19 @@ class MenuScene: SKScene {
         self.addChild(backgroundNode)
         self.addChild(startGameLabel)
         self.addChild(quitGameLabel)
+    }
+    
+    //play background sound
+    func audioInBackground() {
+        //load background file into node
+        let soundNode = SKAudioNode(fileNamed: "Start_screen_soundtrack.mp3")
+        soundNode.name = "background_music"
+        //play audio on loop
+        soundNode.autoplayLooped = true
+        //add to the scene
+        self.addChild(soundNode)
+        //change volume of the file to appropriate level
+        soundNode.run(SKAction.changeVolume(to: Float(0.5), duration: 0))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

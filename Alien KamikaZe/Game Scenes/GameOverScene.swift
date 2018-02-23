@@ -9,9 +9,9 @@
 // File: GameOverScene.swift
 // File Desc: Scene to display GameOver event
 //
-// Version: 0.0
-// Commit: Intial commit
-// Date: 22.02.2018
+// Version: 0.1
+// Commit: Added game sounds
+// Date: 23.02.2018
 //
 // Contributors:
 //          Name         StudenID
@@ -25,5 +25,21 @@
 import SpriteKit
 
 class GameOverScene: SKScene {
+    override func didMove(to view: SKView) {
+        //play backgroundaudio
+        audioInBackground()
+    }
     
+    //play background sound
+    func audioInBackground() {
+        //load background file into node
+        let soundNode = SKAudioNode(fileNamed: "Lose_sountrack.mp3")
+        soundNode.name = "background_music"
+        //play audio on loop
+        soundNode.autoplayLooped = true
+        //add to the scene
+        self.addChild(soundNode)
+        //change volume of the file to appropriate level
+        soundNode.run(SKAction.changeVolume(to: Float(0.2), duration: 0))
+    }
 }
