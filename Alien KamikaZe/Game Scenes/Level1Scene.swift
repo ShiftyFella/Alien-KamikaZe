@@ -9,8 +9,8 @@
 // File: Level1Scene.swift
 // File Desc: Scene for Level 1 of the game
 //
-// Version: 0.5
-// Commit: Collision detection and event handler using PhysicsWorld
+// Version: 0.6
+// Commit: Update to enemy spawn logic. Switch to game win scene based on win conditions. Scaling issue fixed for UI
 // Date: 22.02.2018
 //
 // Contributors:
@@ -45,6 +45,7 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
     
     //alien and missiles count
     var aliensCount = 25
+    var aliensCountToGenerate = 25 //amount of enemis left to generate, initial value should be equal to aliensCount
     var missilesCount: Int?
     
     //number of enemy ships
@@ -55,6 +56,9 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
     //random distribution for X and Y axis
     var randomSourceForY = GKShuffledDistribution()
     var randomSourceForX = GKShuffledDistribution()
+    
+    //timer to repeat action at intervals
+    var timer = Timer()
     
     override func didMove(to view: SKView) {
         
@@ -91,8 +95,9 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
             
             //generate missileCount after enemy counts been generated
             DispatchQueue.global(qos: .background).sync {
-                missilesCount = frigatesCount!+2*cruisersCount!+3*battlecruisersCount!+10
-                generateEnemies()
+                missilesCount = frigatesCount!+2*cruisersCount!+3*battlecruisersCount!+50
+                //start timed enemy spawn
+                timedEnemySpawn()
             }
         }
         
@@ -121,12 +126,12 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
         
         //create node to display alien icon on the left side inside the hud shape
         let alientCountIcon = SKSpriteNode(imageNamed: "frigate")
-        alientCountIcon.setScale(1.5)
+        alientCountIcon.setScale(1.2)
         alientCountIcon.position = CGPoint(x: -(alienScoreController.frame.width/2-alientCountIcon.size.width/2-10), y: 0)
         
         //display number of remanining aliens next to alient icon's position
         aliensCountLabel.fontName = "Neuropolitical"
-        aliensCountLabel.fontSize = 48
+        aliensCountLabel.fontSize = 14 * UIScreen.main.scale
         aliensCountLabel.fontColor = SKColor.darkGray
         aliensCountLabel.text = "Aliens: \(aliensCount)"
         aliensCountLabel.position = CGPoint(x: alientCountIcon.size.width-25, y: -aliensCountLabel.frame.height/2)
@@ -146,12 +151,12 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
         
         //create node to display missile icon on the left side inside the hud shape
         let missilesCountIcon = SKSpriteNode(imageNamed: "rocket")
-        missilesCountIcon.setScale(2.0)
+        missilesCountIcon.setScale(1.5)
         missilesCountIcon.position = CGPoint(x: -(missilesScoreController.frame.width/2-missilesCountIcon.size.width/2-10), y: 0)
         
         //display number of remaninging missiles on the hud
         missilesCountLabel.fontName = "Neuropolitical"
-        missilesCountLabel.fontSize = 48
+        missilesCountLabel.fontSize = 14 * UIScreen.main.scale
         missilesCountLabel.fontColor = SKColor.darkGray
         missilesCountLabel.text = "Rockets: \(missilesCount!)"
         missilesCountLabel.position = CGPoint(x: missilesCountIcon.size.width-5, y: -missilesCountLabel.frame.height/2)
@@ -241,61 +246,55 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
         enemy!.doActions(location: CGPoint(x: sceneMiddlePointForX!, y: sceneMiddlePointForY!), speed: 0)
     }
     
-    func generateEnemies() {
-        let frigatesLeftOver = frigatesCount! % 3
-        let frigatesInWave = (frigatesCount! - frigatesLeftOver) / 3
-        
-        let cruisersLeftOver = cruisersCount! % 2
-        let cruisersInWave = (cruisersCount! - cruisersLeftOver) / 2
-        
-        let battlecruisersLeftOver = battlecruisersCount! % 2
-        let battlecruisersInWave = (battlecruisersCount! - battlecruisersLeftOver) / 2
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
-            for _ in 0...frigatesInWave {
-                self.generateEnemyOnScreen(enemyType: "frigate")
-            }
-        })
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5), execute: {
-            DispatchQueue.main.async {
-                for _ in 0...frigatesInWave {
-                    self.generateEnemyOnScreen(enemyType: "frigate")
-                }
-            }
+    //spawn random of enemies of random type per spawn cycle
+    @objc func generateEnemies() {
+        if (aliensCountToGenerate>0) {
+            var enemyRoll = 0
+            //generate random number of enemies, re-roll if count is higher then avaliable amount
+            repeat {
+               enemyRoll = GKShuffledDistribution.init(lowestValue: 1, highestValue: 2).nextInt()
+            } while (enemyRoll>aliensCountToGenerate)
             
-            DispatchQueue.main.async {
-                for _ in 0...cruisersInWave {
-                    self.generateEnemyOnScreen(enemyType: "cruiser")
-                }
+            var toNext = false
+            for _ in 1...enemyRoll {
+                //generate random enemy type, re-roll if generated type has been exhausted
+                repeat {
+                    toNext = false
+                    if (frigatesCount! > 0 || cruisersCount! > 0 || battlecruisersCount! > 0) {
+                        let typeRoll = GKShuffledDistribution.init(lowestValue: 0, highestValue: 2).nextInt()
+                        switch typeRoll {
+                        case 0: if (frigatesCount! > 0 ) {
+                            self.generateEnemyOnScreen(enemyType: "frigate")
+                            frigatesCount! -= 1
+                            toNext = true
+                            }
+                        case 1: if (cruisersCount! > 0) {
+                            self.generateEnemyOnScreen(enemyType: "cruiser")
+                            cruisersCount! -= 1
+                            toNext = true
+                            }
+                        case 2: if (battlecruisersCount! > 0) {
+                            self.generateEnemyOnScreen(enemyType: "battlecruiser")
+                            battlecruisersCount! -= 1
+                            toNext = true
+                            }
+                        default: break
+                        }
+                    } else {
+                        toNext = true
+                    }
+                } while (!toNext)
             }
-            
-            DispatchQueue.main.async {
-                for _ in 0...battlecruisersInWave {
-                    self.generateEnemyOnScreen(enemyType: "battlecruiser")
-                }
-            }
-        })
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(10), execute: {
-            DispatchQueue.main.async {
-                for _ in 0...(frigatesInWave+frigatesLeftOver) {
-                    self.generateEnemyOnScreen(enemyType: "frigate")
-                }
-            }
-            
-            DispatchQueue.main.async {
-                for _ in 0...(cruisersInWave+cruisersLeftOver) {
-                    self.generateEnemyOnScreen(enemyType: "cruiser")
-                }
-            }
-            
-            DispatchQueue.main.async {
-                for _ in 0...(battlecruisersInWave+battlecruisersLeftOver) {
-                    self.generateEnemyOnScreen(enemyType: "battlecruiser")
-                }
-            }
-        })
+            aliensCountToGenerate -= enemyRoll
+        } else {
+            //no more enemies to generate cancel timer
+            timer.invalidate()
+        }
+    }
+    
+    //timer to generate enemy swawn at specific interval
+    func timedEnemySpawn() {
+        timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.generateEnemies), userInfo: nil, repeats: true)
     }
     
     //handle collision actions
@@ -310,6 +309,9 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
             //enemy has no hp left, destroy it
             enemy.removeAllActions()
             enemy.removeFromParent()
+            
+            //enemy destroyed update enemy count
+            updateAliensCount()
         }
         
         //bullet exploded, remove from scene
@@ -333,6 +335,16 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
             }
     }
     
+    //enemy destroyed update enemy count
+    func updateAliensCount() {
+        //check if there are any more enemies remaining
+        if aliensCount-1 > 0 {
+            aliensCount -= 1
+        } else {//no more enemies, switch to Game Win scene
+            gameWin()
+        }
+    }
+    
     //Switch to game over scene
     func gameOver() {
         //creates fade in transition
@@ -344,18 +356,35 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
         //present new scene using transition
         self.view?.presentScene(scene, transition: transition)
     }
+    
+    //Switch to Game Won scene
+    func gameWin() {
+        //creates fade in transition
+        let transition = SKTransition.fade(withDuration: 1.0)
         
+        //creates instance of game over scene to transition to
+        let scene = GameWinScene(size: self.size)
+        
+        //present new scene using transition
+        self.view?.presentScene(scene, transition: transition)
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
             //get location of the tap
             let location = t.location(in: self)
             
-            //create bullet object and move it through touch location
-            let bullet = BulletObject()
-            bullet.position = CGPoint(x: sceneMiddlePointForX!, y: sceneMiddlePointForY!)
-            self.addChild(bullet)
-            bullet.doActions(location: location, speed: 1.0)
+            //if misslies are avaliable, fire
+            if (missilesCount! > 0) {
+                //create bullet object and move it through touch location
+                let bullet = BulletObject()
+                bullet.position = CGPoint(x: sceneMiddlePointForX!, y: sceneMiddlePointForY!)
+                self.addChild(bullet)
+                bullet.doActions(location: location, speed: 1.0)
+                
+                //misslie fired, reduce avaliable misslies
+                missilesCount! -= 1
+            }
         }
     }
     
@@ -364,8 +393,11 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
         //update HUD labels
         aliensCountLabel.text = "Aliens: \(aliensCount)"
         missilesCountLabel.text = "Rockets: \(missilesCount!)"
-
         
+        //check if no more aliens go to game win scene
+        if aliensCount == 0 {
+            gameWin()
+        }
     }
     
     //SKPhysicsContact Delegate method to handle reaction to collision events
