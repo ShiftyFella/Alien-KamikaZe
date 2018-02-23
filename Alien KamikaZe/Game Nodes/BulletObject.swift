@@ -9,8 +9,8 @@
 // File: BulletObject.swift
 // File Desc: Bullet Object in Game of memeber Generic game object class.
 //
-// Version: 0.1
-// Commit: Rocket bullet object created with custom move to target action
+// Version: 0.2
+// Commit: Added physics behaviour to bullet object
 // Date: 22.02.2018
 //
 // Contributors:
@@ -28,6 +28,24 @@ class BulletObject: GenericObject {
     init() {
         super.init(objectTextureFileName: "rocket", objectScale: 1.5)
         self.zPosition = 20
+        
+        //shape of the polygon for physics contact
+        self.physicsBody = SKPhysicsBody(texture: self.texture!, size: (self.texture!.size()))
+        
+        //physics body dynamic
+        self.physicsBody?.isDynamic = true
+        
+        //affected by gravity
+        self.physicsBody?.affectedByGravity = false
+        
+        //collision category object belongs to
+        self.physicsBody?.categoryBitMask = collisionBulletCategory
+        
+        //collision category object that trigers collision event with
+        self.physicsBody?.contactTestBitMask = collisionEnemyCategory
+        
+        //collision mask
+        self.physicsBody?.collisionBitMask = 0x0
     }
     
     required init?(coder aDecoder: NSCoder) {

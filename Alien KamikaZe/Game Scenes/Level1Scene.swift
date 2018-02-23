@@ -9,8 +9,8 @@
 // File: Level1Scene.swift
 // File Desc: Scene for Level 1 of the game
 //
-// Version: 0.4
-// Commit: Random generation and display of enemies. Update to misslieCount to make sure user has enough rockets to finish the level
+// Version: 0.5
+// Commit: Collision detection and event handler using PhysicsWorld
 // Date: 22.02.2018
 //
 // Contributors:
@@ -29,7 +29,12 @@ import GameplayKit
 var sceneMiddlePointForX : CGFloat?
 var sceneMiddlePointForY : CGFloat?
 
-class Level1Scene: SKScene {
+//collision mask for physics
+let collisionBulletCategory:UInt32 = 0x1 << 0
+let collisionEnemyCategory:UInt32 = 0x1 << 1
+let collisionTowerCategory:UInt32 = 0x1 << 2
+
+class Level1Scene: SKScene, SKPhysicsContactDelegate {
     
     //label nodes to display alien and missiles count
     let aliensCountLabel = SKLabelNode()
@@ -93,6 +98,9 @@ class Level1Scene: SKScene {
         
         //draw hud when scene loads
         createHUD()
+        
+        //assign Physics World delegate to the scene
+        self.physicsWorld.contactDelegate = self
     }
     
     //draw HUD elements
@@ -289,6 +297,53 @@ class Level1Scene: SKScene {
             }
         })
     }
+    
+    //handle collision actions
+    func collissionAction(enemyNode: SKNode, bulletNode: SKNode) {
+        let enemy = enemyNode as! EnemyObject
+        let bullet = bulletNode as! BulletObject
+        
+        //if enemy still has HP reduce it
+        if enemy.hp!>1 {
+            enemy.hp! -= 1
+        } else {
+            //enemy has no hp left, destroy it
+            enemy.removeAllActions()
+            enemy.removeFromParent()
+        }
+        
+        //bullet exploded, remove from scene
+        bullet.removeAllActions()
+        bullet.removeFromParent()
+    }
+    
+    //verify which group collided between each other
+    func checkCollision(nodeA: SKPhysicsBody, nodeB: SKPhysicsBody) {
+        //DO IT
+        
+        // EnemyObject and Bullet collided pass node objects to collision handler
+        if ( nodeA.categoryBitMask == collisionEnemyCategory && nodeB.categoryBitMask == collisionBulletCategory ) {
+            collissionAction(enemyNode: nodeA.node!, bulletNode: nodeB.node!)
+        } else if ( nodeB.categoryBitMask == collisionEnemyCategory && nodeA.categoryBitMask == collisionBulletCategory ) {
+            collissionAction(enemyNode: nodeB.node!, bulletNode: nodeA.node!)
+        }
+        //Enemy reached tower, display Game Over scene
+        else if (nodeA.categoryBitMask == collisionTowerCategory && nodeB.categoryBitMask == collisionEnemyCategory || nodeB.categoryBitMask == collisionTowerCategory && nodeA.categoryBitMask == collisionEnemyCategory) {
+                    gameOver()
+            }
+    }
+    
+    //Switch to game over scene
+    func gameOver() {
+        //creates fade in transition
+        let transition = SKTransition.fade(withDuration: 1.0)
+        
+        //creates instance of game over scene to transition to
+        let scene = GameOverScene(size: self.size)
+        
+        //present new scene using transition
+        self.view?.presentScene(scene, transition: transition)
+    }
         
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -311,5 +366,10 @@ class Level1Scene: SKScene {
         missilesCountLabel.text = "Rockets: \(missilesCount!)"
 
         
+    }
+    
+    //SKPhysicsContact Delegate method to handle reaction to collision events
+    func didBegin(_ contact: SKPhysicsContact) {
+        checkCollision(nodeA: contact.bodyA, nodeB: contact.bodyB)
     }
 }
