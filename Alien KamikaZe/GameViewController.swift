@@ -9,9 +9,9 @@
 // File: GameViewController.swift
 // File Desc: View controller for the game
 //
-// Version: 0.1
-// Commit: Start MenuScene without using SKS file
-// Date: 22.02.2018
+// Version: 0.11
+// Commit: Turned off display of debug info
+// Date: 23.02.2018
 //
 // Contributors:
 //          Name         StudenID
@@ -49,8 +49,8 @@ class GameViewController: UIViewController {
             
             view.ignoresSiblingOrder = true
             
-            view.showsFPS = true
-            view.showsNodeCount = true
+            view.showsFPS = false
+            view.showsNodeCount = false
         }
     }
 

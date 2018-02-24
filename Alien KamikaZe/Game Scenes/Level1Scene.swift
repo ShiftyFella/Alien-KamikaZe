@@ -9,8 +9,8 @@
 // File: Level1Scene.swift
 // File Desc: Scene for Level 1 of the game
 //
-// Version: 0.7
-// Commit: Special and Audio effects
+// Version: 0.75
+// Commit: Memory access issue fix, tidy up
 // Date: 23.02.2018
 //
 // Contributors:
@@ -49,9 +49,9 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
     var missilesCount: Int?
     
     //number of enemy ships
-    var frigatesCount: Int?
-    var cruisersCount: Int?
-    var battlecruisersCount: Int?
+    var frigatesCount = 0
+    var cruisersCount = 0
+    var battlecruisersCount = 0
     
     //random distribution for X and Y axis
     var randomSourceForY = GKShuffledDistribution()
@@ -68,7 +68,7 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
         //set middle point of the screen
         sceneMiddlePointForX = self.frame.width/2
         sceneMiddlePointForY = self.frame.height/2
-        
+    
         //get random distribution for enemy position generation
         randomSourceForY = GKShuffledDistribution.init(lowestValue: 0, highestValue: Int(sceneMiddlePointForX!))
         randomSourceForX = GKShuffledDistribution.init(lowestValue: 0, highestValue: Int(sceneMiddlePointForY!))
@@ -98,7 +98,7 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
             
             //generate missileCount after enemy counts been generated
             DispatchQueue.global(qos: .background).sync {
-                missilesCount = frigatesCount!+2*cruisersCount!+3*battlecruisersCount!+50
+                missilesCount = frigatesCount+2*cruisersCount+3*battlecruisersCount+25
                 //start timed enemy spawn
                 timedEnemySpawn()
             }
@@ -220,21 +220,21 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
         }
         //generate random number of cruisers from remaining slots
         DispatchQueue.global(qos: .background).sync {
-            cruisersCount = GKShuffledDistribution.init(lowestValue: 0, highestValue: aliensCount-frigatesCount!).nextInt()
+            cruisersCount = GKShuffledDistribution.init(lowestValue: 0, highestValue: aliensCount-frigatesCount).nextInt()
         }
             
         //generate random number of cruisers from remaining slots
         DispatchQueue.global(qos: .background).sync {
-            if cruisersCount! + frigatesCount! < aliensCount {
-                battlecruisersCount = GKShuffledDistribution.init(lowestValue: 0, highestValue: aliensCount-frigatesCount!-cruisersCount!).nextInt()
+            if cruisersCount + frigatesCount < aliensCount {
+                battlecruisersCount = GKShuffledDistribution.init(lowestValue: 0, highestValue: aliensCount-frigatesCount-cruisersCount).nextInt()
             }
         }
         
         //check if not enought enemies been generated add more frigates
         DispatchQueue.global(qos: .background).sync {
-            let count = frigatesCount!+cruisersCount!+battlecruisersCount!
+            let count = frigatesCount+cruisersCount+battlecruisersCount
             if count < aliensCount {
-                frigatesCount! += aliensCount-count
+                frigatesCount += aliensCount-count
             }
         }
         }
@@ -276,22 +276,22 @@ class Level1Scene: SKScene, SKPhysicsContactDelegate {
                 //generate random enemy type, re-roll if generated type has been exhausted
                 repeat {
                     toNext = false
-                    if (frigatesCount! > 0 || cruisersCount! > 0 || battlecruisersCount! > 0) {
+                    if (frigatesCount > 0 || cruisersCount > 0 || battlecruisersCount > 0) {
                         let typeRoll = GKShuffledDistribution.init(lowestValue: 0, highestValue: 2).nextInt()
                         switch typeRoll {
-                        case 0: if (frigatesCount! > 0 ) {
+                        case 0: if (frigatesCount > 0 ) {
                             self.generateEnemyOnScreen(enemyType: "frigate")
-                            frigatesCount! -= 1
+                            frigatesCount -= 1
                             toNext = true
                             }
-                        case 1: if (cruisersCount! > 0) {
+                        case 1: if (cruisersCount > 0) {
                             self.generateEnemyOnScreen(enemyType: "cruiser")
-                            cruisersCount! -= 1
+                            cruisersCount -= 1
                             toNext = true
                             }
-                        case 2: if (battlecruisersCount! > 0) {
+                        case 2: if (battlecruisersCount > 0) {
                             self.generateEnemyOnScreen(enemyType: "battlecruiser")
-                            battlecruisersCount! -= 1
+                            battlecruisersCount -= 1
                             toNext = true
                             }
                         default: break

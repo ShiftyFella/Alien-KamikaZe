@@ -29,6 +29,7 @@
 		77A5BCB22040AB9300C081EF /* Start_screen_soundtrack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77A5BCB12040AB9300C081EF /* Start_screen_soundtrack.mp3 */; };
 		77A5BCB42040ABAF00C081EF /* EndOfTheGame_soundtrack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77A5BCB32040ABAF00C081EF /* EndOfTheGame_soundtrack.mp3 */; };
 		77A5BCB62040ABB600C081EF /* Lose_sountrack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 77A5BCB52040ABB600C081EF /* Lose_sountrack.mp3 */; };
+		77A5BCBE2040E0EF00C081EF /* fireworks.sks in Resources */ = {isa = PBXBuildFile; fileRef = 77A5BCBD2040E0EF00C081EF /* fireworks.sks */; };
 		77A82F66203F04CE0073326B /* TowerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A82F65203F04CE0073326B /* TowerObject.swift */; };
 		77A82F68203F087A0073326B /* BulletObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A82F67203F087A0073326B /* BulletObject.swift */; };
 		77A82F6A203F22C90073326B /* EnemyObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A82F69203F22C90073326B /* EnemyObject.swift */; };
@@ -62,6 +63,7 @@
 		77A5BCB12040AB9300C081EF /* Start_screen_soundtrack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Start_screen_soundtrack.mp3; sourceTree = "<group>"; };
 		77A5BCB32040ABAF00C081EF /* EndOfTheGame_soundtrack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = EndOfTheGame_soundtrack.mp3; sourceTree = "<group>"; };
 		77A5BCB52040ABB600C081EF /* Lose_sountrack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Lose_sountrack.mp3; sourceTree = "<group>"; };
+		77A5BCBD2040E0EF00C081EF /* fireworks.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = fireworks.sks; sourceTree = "<group>"; };
 		77A82F65203F04CE0073326B /* TowerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TowerObject.swift; sourceTree = "<group>"; };
 		77A82F67203F087A0073326B /* BulletObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletObject.swift; sourceTree = "<group>"; };
 		77A82F69203F22C90073326B /* EnemyObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyObject.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				77A5BCA22040A74300C081EF /* sparks.sks */,
 				77A5BCA32040A74300C081EF /* Assets.xcassets */,
 				77A5BCA82040A85800C081EF /* smoke.sks */,
+				77A5BCBD2040E0EF00C081EF /* fireworks.sks */,
 			);
 			path = "Game Particle Effects";
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				77A5BCB42040ABAF00C081EF /* EndOfTheGame_soundtrack.mp3 in Resources */,
 				77A33899203EC30E000C2F86 /* read-this.html in Resources */,
 				77A3389A203EC30E000C2F86 /* typodermic-eula-02-2014.pdf in Resources */,
+				77A5BCBE2040E0EF00C081EF /* fireworks.sks in Resources */,
 				77A5BCAE2040AB6F00C081EF /* Rocket_launch.mp3 in Resources */,
 				77A5BCA42040A74300C081EF /* sparks.sks in Resources */,
 				77A5BCA52040A74300C081EF /* Assets.xcassets in Resources */,
@@ -413,7 +417,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.centennialcollege.Alien-KamikaZe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -428,7 +432,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "ca.centennialcollege.Alien-KamikaZe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
